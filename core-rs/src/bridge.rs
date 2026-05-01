@@ -10,13 +10,11 @@ impl EventBus {
     #[new]
     pub fn new() -> Self { Self }
 
-    pub fn publish(&self, event: Event) -> PyResult<()> {
-        let _ = event;
+    pub fn publish(&self, _event: Event) -> PyResult<()> {
         Ok(())
     }
 
-    pub fn subscribe(&self, topic: &str) -> PyResult<()> {
-        let _ = topic;
+    pub fn subscribe(&self, _topic: &str) -> PyResult<()> {
         Ok(())
     }
 }
