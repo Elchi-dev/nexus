@@ -40,7 +40,7 @@ impl Default for EventBus {
 #[derive(Clone)]
 pub struct Event {
     #[pyo3(get, set)]
-    pub topic:   String,
+    pub topic: String,
     #[pyo3(get, set)]
     pub payload: String,
 }
