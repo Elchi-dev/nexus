@@ -1,0 +1,30 @@
+# nexus configuration
+# copy this to nexus.toml and fill in your values.
+# use .env for secrets — don't put tokens here directly.
+
+[nexus]
+log_level   = "info"   # debug | info | warn | error
+environment = "dev"    # dev | prod
+
+[runtime]
+max_restart_attempts    = 3
+restart_backoff_ms      = 1_000
+health_check_interval_s = 30
+
+[event_bus]
+transport      = "unix_socket"     # unix_socket | tcp
+socket_path    = "/tmp/nexus.sock"
+max_queue_size = 10_000
+
+[modules.discord]
+enabled = true
+token   = "${DISCORD_TOKEN}"
+
+[modules.twitch]
+enabled       = false
+client_id     = "${TWITCH_CLIENT_ID}"
+client_secret = "${TWITCH_CLIENT_SECRET}"
+
+[web]
+host = "0.0.0.0"
+port = 8080

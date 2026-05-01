@@ -1,0 +1,10 @@
+[project]
+name            = "nexus-config"
+version         = "0.1.0"
+description     = "nexus configuration loading and validation"
+requires-python = ">=3.12"
+dependencies    = ["pydantic>=2.0"]
+
+[build-system]
+requires      = ["hatchling"]
+build-backend = "hatchling.build"

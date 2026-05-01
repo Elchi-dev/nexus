@@ -1,0 +1,10 @@
+[project]
+name            = "nexus-discord"
+version         = "0.1.0"
+description     = "Discord integration module for nexus"
+requires-python = ">=3.12"
+dependencies    = ["nexus-core", "discord.py>=2.0"]
+
+[build-system]
+requires      = ["hatchling"]
+build-backend = "hatchling.build"

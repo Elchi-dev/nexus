@@ -1,0 +1,32 @@
+name-template: 'v$RESOLVED_VERSION'
+tag-template:  'v$RESOLVED_VERSION'
+
+categories:
+  - title: '🚀 features'
+    labels: ['enhancement', 'feature']
+  - title: '🐛 bug fixes'
+    labels: ['bug']
+  - title: '🏗 refactors'
+    labels: ['refactor']
+  - title: '📝 docs'
+    labels: ['docs', 'documentation']
+  - title: '🔧 maintenance'
+    labels: ['chore', 'dependencies']
+
+change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+
+version-resolver:
+  major:
+    labels: ['major']
+  minor:
+    labels: ['minor', 'enhancement']
+  patch:
+    labels: ['patch', 'bug']
+  default: patch
+
+template: |
+  ## what's new in nexus $RESOLVED_VERSION
+
+  $CHANGES
+
+  **full changelog**: https://github.com/Elchi-Dev/nexus/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION

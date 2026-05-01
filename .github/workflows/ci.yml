@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  python:
+    name: Python (lint + test)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: sync workspace
+        run: uv sync
+
+      - name: ruff check
+        run: uv run ruff check .
+
+      - name: mypy
+        run: uv run mypy .
+
+      - name: pytest
+        run: uv run pytest
+
+  rust:
+    name: Rust (clippy + test + fmt)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+
+      - name: cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: cargo test
+        run: cargo test
+
+      - name: cargo clippy
+        run: cargo clippy -- -D warnings
+
+      - name: cargo fmt check
+        run: cargo fmt --check

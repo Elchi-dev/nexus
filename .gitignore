@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+dist/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.pyd
+*.so
+
+# Rust
+target/
+
+# Node
+node_modules/
+.next/
+dist/
+.svelte-kit/
+build/
+
+# env — never commit tokens
+.env
+*.env.local
+
+# OS
+.DS_Store
+._*
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# nexus runtime artifacts
+/tmp/nexus.sock
+nexus.log

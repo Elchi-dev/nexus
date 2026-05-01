@@ -1,0 +1,12 @@
+# global owner
+*  @Elchi-Dev
+
+# rust event bus — needs careful review
+core-rs/  @Elchi-Dev
+
+# modules
+modules/discord/  @Elchi-Dev
+modules/twitch/   @Elchi-Dev
+
+# web
+web/  @Elchi-Dev

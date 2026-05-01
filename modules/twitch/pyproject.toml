@@ -1,0 +1,10 @@
+[project]
+name            = "nexus-twitch"
+version         = "0.1.0"
+description     = "Twitch integration module for nexus"
+requires-python = ">=3.12"
+dependencies    = ["nexus-core", "twitchio>=2.0"]
+
+[build-system]
+requires      = ["hatchling"]
+build-backend = "hatchling.build"

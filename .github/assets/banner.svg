@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+  <style>
+    @keyframes pulse { 0%,100%{opacity:.12} 50%{opacity:.78} }
+    @keyframes flow  { to { stroke-dashoffset: -20; } }
+    .t-main { fill: #1a1a2e; }
+    .t-sub  { fill: #4a4a6a; }
+    .t-tag  { fill: #7a7a9a; }
+    @media (prefers-color-scheme: dark) {
+      .t-main { fill: #dcdcff; }
+      .t-sub  { fill: #9898c0; }
+      .t-tag  { fill: #7070a0; }
+    }
+  </style>
+
+  <g fill="none" stroke="#7F77DD" stroke-width="1" stroke-dasharray="6 7">
+    <line x1="100" y1="90"  x2="220" y2="50"  style="animation:flow 2.2s linear infinite"/>
+    <line x1="220" y1="50"  x2="440" y2="38"  style="animation:flow 2.8s linear infinite .3s"/>
+    <line x1="980" y1="50"  x2="1100" y2="90" style="animation:flow 1.9s linear infinite .6s"/>
+    <line x1="100" y1="90"  x2="100" y2="310" style="animation:flow 3.1s linear infinite .1s"/>
+    <line x1="1100" y1="90" x2="1100" y2="310" style="animation:flow 2.5s linear infinite .4s"/>
+    <line x1="100" y1="310" x2="220" y2="355" style="animation:flow 2.3s linear infinite .8s"/>
+    <line x1="980" y1="355" x2="1100" y2="310" style="animation:flow 2.0s linear infinite .2s"/>
+    <line x1="220" y1="355" x2="440" y2="362" style="animation:flow 2.7s linear infinite .5s"/>
+    <line x1="760" y1="362" x2="980" y2="355" style="animation:flow 2.1s linear infinite .7s"/>
+  </g>
+
+  <g fill="none" stroke="#1D9E75" stroke-width="1" stroke-dasharray="5 8">
+    <line x1="440" y1="38"  x2="760" y2="38"  style="animation:flow 3.4s linear infinite .2s"/>
+    <line x1="440" y1="362" x2="760" y2="362" style="animation:flow 3.0s linear infinite .9s"/>
+    <line x1="760" y1="38"  x2="980" y2="50"  style="animation:flow 2.6s linear infinite .4s"/>
+  </g>
+
+  <g fill="#7F77DD">
+    <circle cx="100"  cy="90"  r="7" style="animation:pulse 2.0s ease-in-out infinite"/>
+    <circle cx="220"  cy="50"  r="5" style="animation:pulse 2.4s ease-in-out infinite .3s"/>
+    <circle cx="1100" cy="90"  r="7" style="animation:pulse 2.2s ease-in-out infinite .1s"/>
+    <circle cx="1100" cy="310" r="7" style="animation:pulse 2.6s ease-in-out infinite .4s"/>
+    <circle cx="100"  cy="310" r="7" style="animation:pulse 2.0s ease-in-out infinite .8s"/>
+    <circle cx="220"  cy="355" r="5" style="animation:pulse 2.3s ease-in-out infinite .2s"/>
+    <circle cx="980"  cy="355" r="5" style="animation:pulse 1.9s ease-in-out infinite .5s"/>
+    <circle cx="980"  cy="50"  r="5" style="animation:pulse 1.8s ease-in-out infinite .6s"/>
+  </g>
+
+  <g fill="#1D9E75">
+    <circle cx="440" cy="38"  r="5" style="animation:pulse 2.7s ease-in-out infinite .7s"/>
+    <circle cx="760" cy="38"  r="5" style="animation:pulse 2.1s ease-in-out infinite .3s"/>
+    <circle cx="440" cy="362" r="5" style="animation:pulse 2.5s ease-in-out infinite .9s"/>
+    <circle cx="760" cy="362" r="5" style="animation:pulse 1.7s ease-in-out infinite .1s"/>
+  </g>
+
+  <text x="600" y="224" text-anchor="middle" class="t-main"
+        font-family="ui-monospace,'Cascadia Code','JetBrains Mono','Fira Code',Menlo,Monaco,'Courier New',monospace"
+        font-size="148" font-weight="700" letter-spacing="-5">NEXUS</text>
+  <text x="600" y="274" text-anchor="middle" class="t-sub"
+        font-family="system-ui,-apple-system,sans-serif" font-size="22" font-weight="400">
+    unified service orchestration runtime
+  </text>
+  <text x="600" y="304" text-anchor="middle" class="t-tag"
+        font-family="ui-monospace,'Courier New',monospace" font-size="15">
+    yes, it's overengineered. no, we don't care.
+  </text>
+</svg>

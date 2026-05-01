@@ -1,0 +1,10 @@
+[project]
+name            = "nexus-utils"
+version         = "0.1.0"
+description     = "shared utilities (including the infamous line_break)"
+requires-python = ">=3.12"
+dependencies    = []
+
+[build-system]
+requires      = ["hatchling"]
+build-backend = "hatchling.build"

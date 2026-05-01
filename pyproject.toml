@@ -1,0 +1,27 @@
+[tool.uv.workspace]
+members = [
+    "core",
+    "utils",
+    "config",
+    "modules/discord",
+    "modules/twitch",
+    "web/backend",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length    = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "UP", "ANN", "B", "SIM"]
+ignore = ["ANN101", "ANN102"]
+
+[tool.mypy]
+python_version    = "3.12"
+strict            = true
+warn_return_any   = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts   = "-v --tb=short"

@@ -1,0 +1,10 @@
+[project]
+name            = "nexus-core"
+version         = "0.1.0"
+description     = "nexus runtime orchestrator"
+requires-python = ">=3.12"
+dependencies    = ["nexus-utils", "nexus-config"]
+
+[build-system]
+requires      = ["hatchling"]
+build-backend = "hatchling.build"

@@ -1,0 +1,41 @@
+name: Bug report
+description: something broke. again.
+title: "[bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        before you file this: is it definitely not `line_break()` being dramatic?
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: what happened?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: what did you expect?
+    validations:
+      required: true
+  - type: dropdown
+    id: module
+    attributes:
+      label: which module?
+      options:
+        - core (Python orchestrator)
+        - core-rs (Rust event bus)
+        - discord
+        - twitch
+        - web
+        - utils (if it's line_break, we're sorry)
+        - config
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: nexus version
+    validations:
+      required: true

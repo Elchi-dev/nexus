@@ -1,0 +1,25 @@
+name: Feature request
+description: have an idea? we love unnecessary complexity.
+title: "[feat]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: what do you want?
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: why?
+    validations:
+      required: true
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: checklist
+      options:
+        - label: this makes nexus more useful
+        - label: this makes nexus more overengineered (also acceptable)
+        - label: I will implement this
