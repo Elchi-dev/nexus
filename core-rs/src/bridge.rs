@@ -1,5 +1,7 @@
 //! PyO3 bridge — the seam between Rust and Python. treat with respect.
 
+#![allow(clippy::useless_conversion)]
+
 use pyo3::prelude::*;
 
 /// the event bus, as seen from Python.

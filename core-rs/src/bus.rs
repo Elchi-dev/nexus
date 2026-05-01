@@ -1,4 +1,7 @@
 //! internal event bus — pub/sub routing and queue management.
+//! currently stubs. the glorious implementation comes later.
+
+#![allow(dead_code)]
 
 #[derive(Debug, Clone)]
 pub enum Transport {
