@@ -12,51 +12,36 @@ if you're wondering how this happened: hubris.
 
 from __future__ import annotations
 
-import sys
-import time
-import threading
 import contextlib
+import sys
+import threading
+import time
 import traceback
-
 from abc import ABC, abstractmethod
+from collections.abc import Callable, Generator
 from dataclasses import dataclass, field
 from enum import Enum, auto
 from functools import wraps
 from typing import (
-    Callable, ClassVar, Final, Generator,
-    Literal, Protocol, Self, TypeAlias, TypeVar,
-    overload, runtime_checkable,
+    ClassVar,
+    Final,
+    Literal,
+    Protocol,
+    Self,
+    overload,
+    runtime_checkable,
 )
-
 
 # ─────────────────────────────────────────────
 #  Types & constants
 # ─────────────────────────────────────────────
 
-T = TypeVar("T")
-BreakChar: TypeAlias = str
-OutputTarget: TypeAlias = Literal["stdout", "stderr"]
+type BreakChar = str
+type OutputTarget = Literal["stdout", "stderr"]
 
 _DEFAULT_CHAR:  Final[str] = "\n"
 _DEFAULT_TIMES: Final[int] = 1
 _MAX_BREAKS:    Final[int] = 1_000
-
-
-# ─────────────────────────────────────────────
-#  Protocols
-# ─────────────────────────────────────────────
-
-@runtime_checkable
-class Writeable(Protocol):
-    """Anything with a write() — stdout, file, StringIO, custom sink."""
-    def write(self, s: str, /) -> int: ...
-    def flush(self) -> None: ...
-
-
-@runtime_checkable
-class LineBreakObserver(Protocol):
-    """Implement this to hook into every line-break event."""
-    def on_break(self, event: "LineBreakEvent") -> None: ...
 
 
 # ─────────────────────────────────────────────
@@ -65,6 +50,7 @@ class LineBreakObserver(Protocol):
 
 class BreakStyle(Enum):
     """How should line breaks be emitted?"""
+
     STANDARD  = auto()   # \n
     DOUBLE    = auto()   # \n\n per break
     SEPARATOR = auto()   # custom separator char/string
@@ -73,16 +59,23 @@ class BreakStyle(Enum):
 
     def resolve_char(self, custom: str | None = None) -> str:
         match self:
-            case BreakStyle.STANDARD:  return "\n"
-            case BreakStyle.DOUBLE:    return "\n\n"
-            case BreakStyle.CRLF:      return "\r\n"
-            case BreakStyle.NULL:      return "\x00"
-            case BreakStyle.SEPARATOR: return custom or ("─" * 40 + "\n")
-            case _:                    return "\n"
+            case BreakStyle.STANDARD:
+                return "\n"
+            case BreakStyle.DOUBLE:
+                return "\n\n"
+            case BreakStyle.CRLF:
+                return "\r\n"
+            case BreakStyle.NULL:
+                return "\x00"
+            case BreakStyle.SEPARATOR:
+                return custom or ("─" * 40 + "\n")
+            case _:
+                return "\n"
 
 
 class OverflowPolicy(Enum):
     """What happens when times > max_breaks?"""
+
     RAISE = auto()   # raise BreakOverflowError
     CLAMP = auto()   # silently clamp to max_breaks
     WARN  = auto()   # emit a warning, then clamp
@@ -113,7 +106,19 @@ class InvalidBreakTargetError(LineBreakError):
 
 
 # ─────────────────────────────────────────────
-#  Event dataclass
+#  Protocols
+# ─────────────────────────────────────────────
+
+@runtime_checkable
+class Writeable(Protocol):
+    """Anything with a write() — stdout, file, StringIO, custom sink."""
+
+    def write(self, s: str, /) -> int: ...
+    def flush(self) -> None: ...
+
+
+# ─────────────────────────────────────────────
+#  Event dataclass — defined BEFORE LineBreakObserver
 # ─────────────────────────────────────────────
 
 @dataclass(frozen=True, slots=True)
@@ -131,6 +136,17 @@ class LineBreakEvent:
     def total_bytes(self) -> int:
         """Total bytes that will be written."""
         return len(self.char.encode()) * self.times
+
+
+# ─────────────────────────────────────────────
+#  Observer protocol — after LineBreakEvent
+# ─────────────────────────────────────────────
+
+@runtime_checkable
+class LineBreakObserver(Protocol):
+    """Implement this to hook into every line-break event."""
+
+    def on_break(self, event: LineBreakEvent) -> None: ...
 
 
 # ─────────────────────────────────────────────
@@ -153,10 +169,10 @@ class LineBreakConfig:
 
     _instance: ClassVar[LineBreakConfig | None] = None
 
-    max_breaks:      int                    = _MAX_BREAKS
-    default_style:   BreakStyle             = BreakStyle.STANDARD
-    overflow_policy: OverflowPolicy         = OverflowPolicy.RAISE
-    dry_run:         bool                   = False
+    max_breaks:      int                     = _MAX_BREAKS
+    default_style:   BreakStyle              = BreakStyle.STANDARD
+    overflow_policy: OverflowPolicy          = OverflowPolicy.RAISE
+    dry_run:         bool                    = False
     observers:       list[LineBreakObserver] = field(default_factory=list)
 
     @classmethod
@@ -232,7 +248,7 @@ class ThrottledEmitter(BaseLineBreakEmitter):
 #  Validation decorator
 # ─────────────────────────────────────────────
 
-def validate_break_args(fn: Callable[..., T]) -> Callable[..., T]:
+def validate_break_args[T](fn: Callable[..., T]) -> Callable[..., T]:
     """Validates `times` type and value before the function body runs."""
 
     @wraps(fn)
@@ -286,11 +302,11 @@ def line_break(times: int = ..., *, char: str = ..., target: Writeable = ...) ->
 
 @validate_break_args
 def line_break(
-    times:   int                        = _DEFAULT_TIMES,
+    times:   int                         = _DEFAULT_TIMES,
     *,
-    char:    str | None                 = None,
-    style:   BreakStyle | None          = None,
-    target:  Writeable | None           = None,
+    char:    str | None                  = None,
+    style:   BreakStyle | None           = None,
+    target:  Writeable | None            = None,
     emitter: BaseLineBreakEmitter | None = None,
     config:  LineBreakConfig | None      = None,
 ) -> int:
